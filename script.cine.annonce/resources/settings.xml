@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<settings>
+  <category label="Surpriseme">
+   <setting label="Reglages SurpriseMe" type="lsep"/>
+   <setting id="runmode" type="enum" label="30000" values="Demander|Definie" default="Definie"/>
+   <setting id="filterunwatched" type="enum" label="30001" values="Demander|oui|non" default="oui" enable="eq(-1,1)"/>
+   <setting id="filtergenres" type="enum" label="30002" values="Demander|oui|non" default="Demander" enable="eq(-2,1)"/>
+   <setting id="filteryear" type="enum" label="30003" values="Demander|oui|non" default="Demander" enable="eq(-3,1)"/>
+   <setting id="filterdisney" type="enum" label="30007" values="Demander|oui|non" default="non" enable="eq(-4,1)"/>
+   <setting id="filterlast" type="enum" label="30008" values="Demander|oui|non" default="Demander" enable="eq(-5,1)"/>
+   <setting id="trailermode" type="bool" label="30004" default="true" enable="eq(-6,1)"/>
+   <setting id="randommode" type="bool" label="30009" default="true"/>
+   <setting id="hide_info_sur" type="bool" label="34003" default="false" />
+   <setting id="hide_title_sur" type="bool" label="34008" default="false"/>
+   <setting id="numtrailers" type="slider" label="30005"  range="1,1,10" option="int" default=4/>
+   <setting id="longruntime" type="slider" label="30006" range="40,5,150" option="int" default=95/>
+  </category>
+  <category label="Random Trailers">
+    <setting label="Reglages RandomTrailers" type="lsep"/>
+    <setting id="number_trailers" type="number" label="32000" default="10" />
+    <setting id="do_animation" type="bool" label="32001" default="false" />
+    <setting id="do_genre" type="bool" label="32002" default="true" />
+    <setting id="do_year" type="bool" label="32010" default="true" />
+    <setting id="do_last" type="bool" label="32011" default="true" />
+    <setting id="hide_info" type="bool" label="32003" default="false" />
+    <setting id="hide_title" type="bool" label="32008" default="false"/>
+    <setting id="hide_watched" type="bool" label="32004" default="false" />
+    <setting id="watched_days" type="number" enable="!eq(-1,false)" label="32005" default="365" /> 
+  </category>
+  <category label="Suggestions">
+    <setting label="Suggestions trailers" type="lsep"/>
+    <setting id="number_trailers_sug" type="number" label="33000" default="10" />
+    <setting id="do_animation_sug" type="bool" label="33001" default="false" />
+    <setting id="hide_title_sug" type="bool" label="33008" default="false"/>
+    <setting id="hide_info_sug" type="bool" label="33003" default="false" />
+    <setting id="tmdb_source" label="33043" type="enum" default="6" lvalues="32047|32048|32049|32050|32052|32051|32053" />
+  </category>
+  <category label="Recherche">
+    <setting label="Recherche d'une bande annonce" type="lsep"/>
+    <setting id="do_animation_search" type="bool" label="33001" default="false" />
+    <setting id="hide_title_search" type="bool" label="33008" default="false"/>
+    <setting id="hide_info_search" type="bool" label="33003" default="false" />
+    <setting id="hide_noba" type="bool" label="Ne pas montrer les films sans bande-annonces dans les resultats" default="false" />
+ </category> 
+ <category label="General">
+    <setting id="wanted_path" label="Repertoire ou placer la liste des films voulus si Couchpotato n'existe pas" type="folder" option="writeable" />
+ </category>
+</settings>
+
+

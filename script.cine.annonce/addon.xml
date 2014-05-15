@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.cine_annonces"
+       name="Cine annonces"
+       version="1.2.2"
+       provider-name="sarakha63">
+  <requires>
+    <import addon="xbmc.python"					version="2.1.0"/>
+    <import addon="xbmc.addon"					version="12.0.0"/>
+    <import addon="script.module.simplejson"	version="2.0.10"/>
+    <import addon="script.module.elementtree"	version="1.2.7" />
+  </requires>
+  <extension point="xbmc.python.script"			library="default.py" />
+ <provides>executable</provides>
+  <extension point="xbmc.addon.metadata">
+	<language></language>
+    <platform>all</platform>
+    <summary lang="en">La boite à outils des bandes annonces</summary>
+    <description lang="en">
+		Permet de choisir 5 options.
+		La première vous proposera des bandes annonces de films que vous avez selon des critères que vous choisissez et vous laissera choisir ou choisira le film à lancer.
+		La deuxième permet de voir un certains nombres de bandes annonces de films que vous possédez selon des critères.
+		La troisième vous proposera des bandes annonces de films (a l'affiche, populaire, sorties DVD etc...)
+		La quatrième permet de rechercher un film et voir sa bande annonce
+		La cinquième permet de gérer ses bandes annonces.
+		
+		Touches:
+		Pendant une bande annonce des modes 3 et 4 appuyer sur Q permet de rajouter le film dans une wanted liste ou de le rajouter
+		directement dans couchpotato
+		Un appui sur fleche droite passera à la bande annonce suivante
+		Un appui sur retour ou x (stop) permet de quitter le script
+		Un appui sur OK ou entree pendant une BA du mode 1 ou 2 lancera directement le film
+		Un appui sur Q pendant une bande annonce des modes 3 et 4 permet d'ignorer la bande annonce et qu'elle ne soit plus proposee dans les suggestions
+	</description>
+	<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+	<forum></forum>
+    <website></website>
+    <email></email>
+    <source></source>
+  </extension>
+</addon>

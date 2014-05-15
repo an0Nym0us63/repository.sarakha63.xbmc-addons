@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+	<!-- All %s must remain in string but can change position -->
+	<string id="30000">Afficher au lancement ou utiliser les options suivantes</string>
+    <string id="30001">Restreindre aux films non vus</string>
+    <string id="30002">Filtrer par genre</string>
+    <string id="30003">Filtrer par annee</string>
+    <string id="30004">Montrer des bandes annonces</string>
+    <string id="30005">Nombre de bandes-annonces</string>
+    <string id="30006">Duree d'un film long (en minutes)</string>
+	<string id="30007">Filtrer Disney</string>
+	<string id="30008">Filtrer par date de telechargement</string>
+	<string id="30009">Lancer un film au hasard si aucun n'est choisi</string>
+    <string id="32000">Nombre de bandes annonces a regarder (0=continu)</string>
+    <string id="32001">Jouer les videos d'intro et d'outro</string>
+    <string id="32002">Filtrer par genre</string>
+    <string id="32003">Cacher les infos</string>
+    <string id="32004">Ignorer les bandes annonces des films vus</string>
+    <string id="32005">Nombre de jours pour ignorer un film vu</string>    
+    <string id="32008">Cacher titre films</string>
+    <string id="32010">Filtrer par annee</string>
+    <string id="32011">Filtrer par date d'ajout</string>
+    <string id="33000">Nombre de bandes annonces a regarder (0=continu)</string>    
+    <string id="33001">Jouer les videos d'intro et d'outro</string>
+    <string id="33003">Cacher les infos films</string>
+    <string id="33008">Cacher titre films</string>
+    <string id="33043">Type de bandes annnonces</string>
+    <string id="32047">Populaire</string>
+    <string id="32048">Mieux notes</string>
+    <string id="32049">A venir</string>
+    <string id="32050">A l'affiche</string>
+    <string id="32051">Tous</string>
+	<string id="32052">Sorties DVD/Blu-ray</string>
+	<string id="32053">Demander</string>
+    <string id="34003">Cacher les infos films</string>
+    <string id="34008">Cacher titre films</string>
+</strings>
