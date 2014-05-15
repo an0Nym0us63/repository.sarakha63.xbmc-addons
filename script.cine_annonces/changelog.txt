@@ -1,3 +1,5 @@
+[B]1.2.3[/B]
+- Test mise a jour repo
 [B]1.2.2[/B]
 - Rajout d'une ignore list pour ne plus avoir la bande annonce d'un film montree dans les suggestions
 - Rajout de la possibilite de ne pas garder une bande annonce telechargee

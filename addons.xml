@@ -2,7 +2,7 @@
 <addons>
 <addon id="script.cine_annonces"
        name="Cine annonces"
-       version="1.2.2"
+       version="1.2.3"
        provider-name="sarakha63">
   <requires>
     <import addon="xbmc.python"					version="2.1.0"/>
