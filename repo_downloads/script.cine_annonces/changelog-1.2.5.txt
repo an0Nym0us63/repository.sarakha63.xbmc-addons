@@ -1,0 +1,49 @@
+[B]1.2.5[/B]
+- Rajout de la version dans l'ecran de demarage
+[B]1.2.4[/B]
+- Test mise a jour repo
+[B]1.2.3[/B]
+- Test mise a jour repo
+[B]1.2.2[/B]
+- Rajout d'une ignore list pour ne plus avoir la bande annonce d'un film montree dans les suggestions
+- Rajout de la possibilite de ne pas garder une bande annonce telechargee
+[B]1.2.1[/B]
+- Rajout de lecture de bandes annonces du film pendant la recherche et le telechargement
+- A defaut lecture d'une bande annonce aleatoire de la bibliotheque
+[B]1.2.0[/B]
+- Refonte des menus (pour eviter le sorties brutales)
+- Rajout de la possibilite de supprimer un film de sa wanted list
+[B]1.1.9[/B]
+- Rajout de recherche google
+- Rajout de rafraichissement de base de donnee pour voir si une bande annonce a ete rajoutee ou supprimee
+- Rajout s'un retour menu dans le mode 5
+[B]1.1.8[/B]
+- La section gestion de bandes annonces permet :
+	De voir ses bandes annonces
+	De telecharger ses bandes annonces non locales (uniquement allocine pour l'instant)
+	De mettre a jour la BDD pour les nouvelles bandes annonces recuperees ou si un fichier local est detecte (film par film pour le moment)
+[B]1.1.7[/B]
+- Rajout d'un visionneur de wanted list (sera surement editable a l'avenir (suppression surtout)
+- Rajout du compteur BA local
+[B]1.1.6[/B]
+- Rajout de la categorie gestion bandes annonces (permet juste de voir le decompte pour le moment)
+[B]1.1.5[/B]
+- Permettre le rajout de wanted liste meme si pas de plugin couchpotato
+[B]1.1.4[/B]
+- Amelioration du rajout d'un film directement dans couchpotato (plugin couchmanager version sarakha necessaire)
+[B]1.1.3[/B]
+- Rajout option si clique ok/enter pendant fiche ou bande annonce dans mode 1 et 2 lancera directement le film
+- Stop quittera le script
+- Option permettant de ne pas afficher les films sans BA dans les resultats du mode 4 (speciale dedicace nono63)
+- Correction de bugs
+[B]1.1.2[/B]
+- Correction si voir BA est non dans mode 1
+[B]1.1.1[/B]
+- Amelioration detection VO
+[B]1.1.0[/B]
+- Rajout de la recherche a venir et a l'affiche en se basant sur allocine
+- rajout d'une section recherche de film pour voir la bande annonce d'un film en le recherchant
+- correction de bugs
+
+[B]1.0.0[/B]
+- Premiere version

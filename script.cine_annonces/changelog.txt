@@ -1,3 +1,5 @@
+[B]1.2.5[/B]
+- Rajout de la version dans l'ecran de demarage
 [B]1.2.4[/B]
 - Test mise a jour repo
 [B]1.2.3[/B]

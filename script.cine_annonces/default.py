@@ -3,6 +3,7 @@ import xbmcgui
 import xbmcaddon
 addon = xbmcaddon.Addon()
 addon_path = addon.getAddonInfo('path')
+addon_version = addon.getAddonInfo('version')
 
 REMOTE_DBG = False
 
@@ -26,7 +27,7 @@ class blankWindow(xbmcgui.WindowXML):
 def selectchoice():
     success = False
     Choice = ['1 - Proposition de films','2 - Voir mes bandes-annonces', '3 - Suggestions','4 - Rechercher un film','5 - Gestion des bandes-annonces','6 - Consulter ses listes','7 - Quitter']
-    selectedchoice = xbmcgui.Dialog().select(u"Que voulez vous faire ?", Choice)
+    selectedchoice = xbmcgui.Dialog().select(u"Que voulez vous faire ?                                                                                        Ciné Annonces "+addon_version, Choice)
     if not selectedchoice == -1:
         selectedchoice = Choice[selectedchoice]
         if selectedchoice == '1 - Proposition de films':
