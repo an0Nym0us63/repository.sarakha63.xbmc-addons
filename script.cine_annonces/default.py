@@ -1407,6 +1407,54 @@ while sortie==False:
                                 dict={'trailer':pagetrailer,'id': [title,year,plot,releasedate,runtime,thumbs,poster],'source':'allo','title':movie['title']}
                                 tmdbTrailers.append(dict)
                 
+                elif source=='todown':
+                    url='http://www.extreme-down.net/films-hd/page/'
+                    url1='http://www.zone-telechargement.com/index.php?q=bluray&catlist[]=95&catlist[]=96&catlist[]=62&orderby=date&search_start='
+                    donetitle=[]
+                    for x in range(1,2):
+                        finurl=url+str(x)+'/'
+                        netpage=urllib2.urlopen(finurl)
+                        soup = BeautifulSoup(netpage, "html.parser" )
+                        maincol=soup.findAll('div',attrs={'id':'maincolumn'})
+                        soupmain=BeautifulSoup(str(maincol[0]))
+                        rows= soupmain.findAll('div',attrs={'class':'blockbox'})
+                        for row in rows:
+                            year=str(row)[str(row).find('Date de sortie'):str(row).find('Date de sortie')+137]
+                            realyear=year[year.rfind('<br')-5:year.rfind('<br')].replace(' ','')
+                            titleline=str(row.findAll('h2',attrs={'class':'blocktitle'})[0])
+                            title=titleline[titleline.rfind('">')+2:titleline.rfind('</a')]
+                            realtitle=title[:title.rfind(' -')]
+                            if not realtitle in donetitle:
+                                try:
+                                    realyear=int(realyear)
+                                except:
+                                    realyear=2014
+                                idmovie=search_tmdb(realtitle,realyear)
+                                dict={'trailer':'tmdb','id': idmovie,'source':'tmdb','title':realtitle}
+                                donetitle.append(realtitle)
+                                tmdbTrailers.append(dict)
+                    for x in range(1,2):
+                        finurl=url1+str(x)+'/'
+                        netpage=urllib2.urlopen(finurl)
+                        soup = BeautifulSoup(netpage, "html.parser" )
+                        rows=soup.findAll('div',attrs={'class':'base2'})
+                        links=[]
+                        for row in rows:
+                            titre=str(row)[str(row).find('<b>'):str(row).find('</b>')]
+                            year=str(row)[str(row).find('de production')+20:]
+                            realyear=year[:year.find('<')]
+                            if 'telechargement' in titre:
+                                realtitre=titre[titre.rfind('">')+2:titre.rfind('</a')]
+                                if not realtitre in donetitle:
+                                    try:
+                                        realyear=int(realyear)
+                                    except:
+                                        realyear=2014
+                                    idmovie=search_tmdb(realtitre,realyear)
+                                    dict={'trailer':'tmdb','id': idmovie,'source':'tmdb','title':realtitre}
+                                    donetitle.append(realtitle)
+                                    tmdbTrailers.append(dict)
+                                                
                 else:
                     page=0
                     for i in range(0,11):
@@ -1593,7 +1641,7 @@ while sortie==False:
                             writer.append(crewMember['name'])
                     addMovie=False
                     for s in movieString['spoken_languages']:
-                        if s['name'] in ['English','French']:
+                        if s['name'] in ['English','French',u'Français']:
                             addMovie=True
                     if movieString['adult']=='true':addMovie = False
                     source='tmdb'
@@ -1607,6 +1655,26 @@ while sortie==False:
                             addMovie=True
                             trailer_url=linkallo
                             source='Allocine'
+                    try:
+                        if trailer_url=='':
+                            pagetrailer=''
+                            search = api.search(title, "movie")
+                            movieallo=api.movie(search['feed']['movie'][0]['code'])
+                            for x in movieallo['movie']['link']:
+                                if x.has_key('name') and 'Bandes annonces' in x['name']:
+                                    pagetrailer=x['href']
+                                else:
+                                    continue
+                            if pagetrailer:
+                                linkallo=alloba(pagetrailer)
+                                if linkallo:
+                                    trailer_url=linkallo
+                                    source='Allocine'
+                                    addMovie=True
+                                else:
+                                    addMovie=False
+                    except:
+                        addMovie=False
                     if not addMovie:
                         dictInfo = {'title':'','trailer': '','year':0,'studio':[],'mpaa':'','file':'','thumbnail':'','fanart':'','director':[],'writer':[],'plot':'','cast':'','runtime':0,'genre':[],'source': 'tmdb','type':'','imdbid':''} 
                     else:
@@ -1639,10 +1707,10 @@ while sortie==False:
                             trailer=getTmdbTrailer(trailer['id'])
                         else:
                             trailer=getTmdbTrailer(trailer['id'],trailer['trailer'])
+                        del trailers[0]
                     except:
                         del trailers[0]
                         self.close()
-                    del trailers[0]
                     source=trailer['source']
                                    
                     lastPlay = True
@@ -1700,7 +1768,7 @@ while sortie==False:
                             strCouchPotato='plugin://plugin.video.couchpotato_manager/movies/add?title='+trailer['title']+'&imdb_id='+str(trailer['imdbid'])
                         else:
                             strCouchPotato='plugin://plugin.video.couchpotato_manager/movies/add?title='+trailer['title']
-                        pathadd=addon_path.replace('\\script.cine.annonce-master','')
+                        pathadd=addon_path.replace('\\script.cine_annonces','')
                         pathadd=os.path.join(pathadd,'XBMC-CouchPotato-Manager-master')
                         pathadd=os.path.join(pathadd,'addon.py')
                         if os.path.isfile(pathadd):
@@ -1924,7 +1992,7 @@ while sortie==False:
                             strCouchPotato='plugin://plugin.video.couchpotato_manager/movies/add?title='+trailer['title']+'&imdb_id='+str(trailer['imdbid'])
                         else:
                             strCouchPotato='plugin://plugin.video.couchpotato_manager/movies/add?title='+trailer['title']
-                        pathadd=addon_path.replace('\\script.cine.annonce-master','')
+                        pathadd=addon_path.replace('\\script.cine_annonces','')
                         pathadd=os.path.join(pathadd,'XBMC-CouchPotato-Manager-master')
                         pathadd=os.path.join(pathadd,'addon.py')
                         if os.path.isfile(pathadd):
@@ -1976,13 +2044,13 @@ while sortie==False:
                 trailercount = 0
                 while not exit_requested:
                     if NUMBER_TRAILERS == 0:
-                        while not exit_requested and not xbmc.abortRequested:
+                        while not exit_requested and not xbmc.abortRequested and len(trailers)>0:
                             mytrailerWindow = trailerWindow('script-trailerwindow.xml', addon_path,'default',)
                             mytrailerWindow.doModal()
                             del mytrailerWindow
                                             
                     else:
-                        while NUMBER_TRAILERS > 0:
+                        while NUMBER_TRAILERS > 0 and len(trailers)>0:
                             mytrailerWindow = trailerWindow('script-trailerwindow.xml', addon_path,'default',)
                             mytrailerWindow.doModal()
                             del mytrailerWindow
@@ -2030,13 +2098,7 @@ while sortie==False:
                     xbmc.Player().play(open_curtain_path)
                     while xbmc.Player().isPlaying():
                         xbmc.sleep(250)
-                trailers = []
-                filtergenre = False
-                trailerNumber = 0
-                library_trailers=[]
-                iTunes_trailers=[]
-                folder_trailers=[]
-                tmdb_trailers=''
+                
                 choice='conf'
                 if addon.getSetting("tmdb_source") == '6':
                     success = False
@@ -2048,58 +2110,85 @@ while sortie==False:
                                 addon.getLocalizedString(32052),
                                 addon.getLocalizedString(32047),
                                 addon.getLocalizedString(32048),
+                                u'Nouveautés disponibles en téléchargement',
                                 'Revenir au menu principal']
                     # prompt user to select genre
-                    selectChoice = xbmcgui.Dialog().select(u"Type de bandes annnonces", mychoice)
-                    if selectChoice==4:
-                        choice='popular'
-                    elif selectChoice==5:
-                        choice='top_rated'
-                    elif selectChoice==2:
-                        choice='upcoming'
-                    elif selectChoice==1:
-                        choice='now_playing'
-                    elif selectChoice==0:
-                        choice='all'
-                    elif selectChoice==3:
-                        choice='dvd'   
-                    else:
-                        choice='none'
-                if choice<>'none':     
-                    dp=xbmcgui.DialogProgress()
-                    dp.create('Suggestions','','','Chargement des bande-annonces')
-                    tmdbTrailers=getTmdbTrailers(choice)
-                    for trailer in tmdbTrailers:
-                        trailers.append(trailer)    
-                    exit_requested=False
-                    if dp.iscanceled():exit_requested=True 
-                    dp.close()
-                    if len(trailers) > 0 and not exit_requested:
-                        alreadyignored=[]
-                        if os.path.isfile(wantedpath+'\IGNOREDMOVIE.txt'):
-                                    LF=open(wantedpath+'\IGNOREDMOVIE.txt', 'r')
-                                    for line in LF:
-                                        alreadyignored.append(line.replace('\n','').decode('utf-8'))
-                                    LF.close()
-                        print str(len(trailers))+ 'trailer total'
-                        print str(len(alreadyignored))+' ignored'
-                        numbercontrol=0
-                        for tocontrol in trailers:
-                            try:
-                                title=tocontrol['title'].decode('utf-8')
-                            except:
-                                title=tocontrol['title']
-                                
-                            for alreadytitle in alreadyignored:
-                                if title in alreadytitle: 
-                                    del trailers[numbercontrol]
-                                    print 'removed '+title.encode('utf-8')
-                                    break
-                            numbercontrol+=1
-                        print 'final '+str(len(trailers))
-                        playTrailers()
-                
-                        
+                    successsug=False
+                    while successsug==False:
+                        trailers = []
+                        filtergenre = False
+                        trailerNumber = 0
+                        library_trailers=[]
+                        iTunes_trailers=[]
+                        folder_trailers=[]
+                        tmdb_trailers=''
+                        selectChoice = xbmcgui.Dialog().select(u"Type de bandes annnonces", mychoice)
+                        if selectChoice==4:
+                            choice='popular'
+                        elif selectChoice==5:
+                            choice='top_rated'
+                        elif selectChoice==2:
+                            choice='upcoming'
+                        elif selectChoice==1:
+                            choice='now_playing'
+                        elif selectChoice==0:
+                            choice='all'
+                        elif selectChoice==3:
+                            choice='dvd'
+                        elif selectChoice==6:
+                            choice='todown' 
+                        else:
+                            choice='none'
+                            successsug=True
+                        if choice<>'none':     
+                            dp=xbmcgui.DialogProgress()
+                            dp.create('Suggestions','','','Chargement des bande-annonces')
+                            tmdbTrailers=getTmdbTrailers(choice)
+                            for trailer in tmdbTrailers:
+                                trailers.append(trailer)    
+                            exit_requested=False
+                            if dp.iscanceled():exit_requested=True 
+                            dp.close()
+                            if len(trailers) > 0 and not exit_requested:
+                                alreadyignored=[]
+                                if os.path.isfile(wantedpath+'\IGNOREDMOVIE.txt'):
+                                            LF=open(wantedpath+'\IGNOREDMOVIE.txt', 'r')
+                                            for line in LF:
+                                                alreadyignored.append(line.replace('\n','').decode('utf-8'))
+                                            LF.close()
+                                print str(len(trailers))+ 'trailer total'
+                                print str(len(alreadyignored))+' ignored'
+                                numbercontrol=0
+                                for tocontrol in trailers:
+                                    try:
+                                        title=tocontrol['title'].decode('utf-8')
+                                    except:
+                                        title=tocontrol['title']
+                                        
+                                    for alreadytitle in alreadyignored:
+                                        if title in alreadytitle: 
+                                            del trailers[numbercontrol]
+                                            print 'removed '+title.encode('utf-8')
+                                            break
+                                    numbercontrol+=1
+                                trailersori=trailers
+                                trailertitles=[u'Tous en aléatoire']
+                                for trailer in trailers:
+                                    trailertitles.append(trailer['title'])
+                                successtitles=False
+                                while successtitles==False:
+                                    selectChoice = xbmcgui.Dialog().select(u"Liste de choix", trailertitles)
+                                    if selectChoice==0:
+                                        playTrailers()
+                                        successtitles=True
+                                    elif selectChoice<>-1:
+                                        trailers=[]
+                                        trailers.append(trailersori[selectChoice-1])
+                                        playTrailers()
+                                        trailers=trailersori
+                                    else:
+                                        successtitles=True
+                                                    
             else:
                 xbmc.log('Random Trailers: ' + 'Exiting Random Trailers Screen Saver Something is playing!!!!!!')
         
@@ -2596,6 +2685,18 @@ while sortie==False:
                             addMovie=True
                             trailer_url=linkallo
                             source='Allocine'
+                    if trailer_url=='':
+                        search = api.search(title, "movie")
+                        movieallo=api.movie(result['code'])
+                        for x in movieallo['movie']['link']:
+                            if x.has_key('name') and 'Bandes annonces' in x['name']:
+                                pagetrailer=x['href']
+                            else:
+                                continue
+                        linkallo=alloba(allo)
+                        if linkallo:
+                            trailer_url=linkallo
+                            source='Allocine'                            
                     if not addMovie:
                         dictInfo = {'title':'','trailer': '','year':0,'studio':[],'mpaa':'','file':'','thumbnail':'','fanart':'','director':[],'writer':[],'plot':'','cast':'','runtime':0,'genre':[],'source': 'tmdb','type':'','imdbid':''} 
                     else:
@@ -2678,7 +2779,7 @@ while sortie==False:
                             strCouchPotato='plugin://plugin.video.couchpotato_manager/movies/add?title='+trailer['title']+'&imdb_id='+str(trailer['imdbid'])
                         else:
                             strCouchPotato='plugin://plugin.video.couchpotato_manager/movies/add?title='+trailer['title']
-                        pathadd=addon_path.replace('\\script.cine.annonce-master','')
+                        pathadd=addon_path.replace('\\script.cine_annonces','')
                         pathadd=os.path.join(pathadd,'XBMC-CouchPotato-Manager-master')
                         pathadd=os.path.join(pathadd,'addon.py')
                         if os.path.isfile(pathadd):
@@ -2877,7 +2978,7 @@ while sortie==False:
                             strCouchPotato='plugin://plugin.video.couchpotato_manager/movies/add?title='+trailer['title']+'&imdb_id='+str(trailer['imdbid'])
                         else:
                             strCouchPotato='plugin://plugin.video.couchpotato_manager/movies/add?title='+trailer['title']
-                        pathadd=addon_path.replace('\\script.cine.annonce-master','')
+                        pathadd=addon_path.replace('\\script.cine_annonces','')
                         pathadd=os.path.join(pathadd,'XBMC-CouchPotato-Manager-master')
                         pathadd=os.path.join(pathadd,'addon.py')
                         if os.path.isfile(pathadd):
